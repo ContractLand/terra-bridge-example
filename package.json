@@ -1,0 +1,15 @@
+{
+  "name": "terra-bridge-example",
+  "version": "1.0.0",
+  "description": "Example scripts for interacting with terra-bridge via web3",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Peter He",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^5.0.1",
+    "node-fetch": "^2.1.2",
+    "web3": "^1.0.0-beta.34",
+    "web3-utils": "^1.0.0-beta.34"
+  }
+}
