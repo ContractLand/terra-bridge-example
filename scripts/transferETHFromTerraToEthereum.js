@@ -40,7 +40,7 @@ async function main() {
       .encodeABI({ from: USER_ADDRESS })
 
   const txData = await homeToken.methods
-      .approveAndCall(HOME_BRIDGE_ADDRESS, Web3Utils.toWei(HOME_MIN_AMOUNT_PER_TX), transferData)
+      .transferAndCall(HOME_BRIDGE_ADDRESS, Web3Utils.toWei(HOME_MIN_AMOUNT_PER_TX), transferData)
       .encodeABI({ from: USER_ADDRESS })
 
   const txHash = await sendTx({
