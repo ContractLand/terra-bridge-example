@@ -18,7 +18,7 @@ The `native currency` is the currency that is used as gas for making transaction
 2. To verify user address balances on both chains, run `node scripts/readBalances.js`. User address need to have native currency (gas) on both networks.
 3. Use provided scripts for making transfers between networks:
 
--  To transfer `ETH` from Ethereum to Terra run: `node scripts/transferETHFromEthereumToTerra.js`
--  To transfer `ETH` from Terra to Ethereum run: `node scripts/transferETHFromTerraToEthereum.js`
--  To transfer `CLC` from Terra to Ethereum run: `node scripts/transferCLCFromTerraToEthereum.js`
--  To transfer `CLC` from Ethereum to Terra run: `node scripts/transferCLCFromEthereumToTerra.js`
+    - To transfer `ETH` from Ethereum to Terra run: `node scripts/transferETHFromEthereumToTerra.js`
+    - To transfer `ETH` from Terra to Ethereum run: `node scripts/transferETHFromTerraToEthereum.js`
+    - To transfer `CLC` from Terra to Ethereum run: `node scripts/transferCLCFromTerraToEthereum.js`
+    - To transfer `CLC` from Ethereum to Terra run: `node scripts/transferCLCFromEthereumToTerra.js`
