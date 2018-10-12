@@ -37,9 +37,9 @@ async function main() {
   console.log(`Foreign (Ropsten) CLC (token) balance: ${web3Foreign.utils.fromWei(foreignToken)}`)
 
   const erc20TokenHome = await erc20TokenForeignContract.methods.balanceOf(USER_ADDRESS).call();
-  console.log(`Foreign (Ropsten) CLC (token) balance: ${web3Foreign.utils.fromWei(erc20TokenHome)}`)
+  console.log(`Foreign (Ropsten) ERC20 token balance: ${web3Foreign.utils.fromWei(erc20TokenHome)}`)
 
   const erc20TokenForeign = await erc20TokenHomeContract.methods.balanceOf(USER_ADDRESS).call();
-  console.log(`Foreign (Ropsten) CLC (token) balance: ${web3Foreign.utils.fromWei(erc20TokenForeign)}`)
+  console.log(`Home (Terra) ERC20 token balance: ${web3Foreign.utils.fromWei(erc20TokenForeign)}`)
 }
 main()
