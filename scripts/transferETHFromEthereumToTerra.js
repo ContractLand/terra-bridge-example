@@ -10,7 +10,8 @@ const {
   FOREIGN_BRIDGE_ADDRESS,
   FOREIGN_RPC_URL,
   FOREIGN_MIN_AMOUNT_PER_TX,
-  NUMBER_OF_TRANSFERS_TO_SEND
+  NUMBER_OF_TRANSFERS_TO_SEND,
+  GAS_PRICE
 } = process.env
 
 const foreignProvider = new Web3.providers.HttpProvider(FOREIGN_RPC_URL)
@@ -35,22 +36,27 @@ async function main() {
   const data = await foreignBridge.methods
       .transferNativeToHome(USER_ADDRESS)
       .encodeABI({ from: USER_ADDRESS })
-  const txHash = await sendTx({
-    rpcUrl: FOREIGN_RPC_URL,
-    privateKey: USER_ADDRESS_PRIVATE_KEY,
-    data: data,
-    nonce,
-    gasPrice: '1',
-    amount: FOREIGN_MIN_AMOUNT_PER_TX,
-    gasLimit: 50000,
-    to: FOREIGN_BRIDGE_ADDRESS,
-    web3: web3Foreign,
-    chainId: foreignChaindId
-  })
-  if (txHash !== undefined) {
-    nonce++
-    actualSent++
-    console.log(actualSent, ' # ', txHash)
+      
+  try {
+    const txHash = await sendTx({
+      rpcUrl: FOREIGN_RPC_URL,
+      privateKey: USER_ADDRESS_PRIVATE_KEY,
+      data: data,
+      nonce,
+      gasPrice: Web3Utils.toWei(String(GAS_PRICE), 'wei'),
+      amount: FOREIGN_MIN_AMOUNT_PER_TX,
+      gasLimit: 50000,
+      to: FOREIGN_BRIDGE_ADDRESS,
+      web3: web3Foreign,
+      chainId: foreignChaindId
+    })
+    if (txHash !== undefined) {
+      nonce++
+      actualSent++
+      console.log(actualSent, ' # ', txHash)
+    }
+  } catch (e) {
+    console.log(e)
   }
 }
 
