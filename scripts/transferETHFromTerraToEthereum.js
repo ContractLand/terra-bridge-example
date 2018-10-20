@@ -37,11 +37,11 @@ async function main() {
   let actualSent = 0
 
   const transferData = await homeBridge.methods
-      .transferTokenToForeign(HOME_TOKEN_FOR_FOREIGN_NATIVE_ADDRESS, USER_ADDRESS, Web3Utils.toWei(HOME_MIN_AMOUNT_PER_TX))
+      .transferTokenToForeign(HOME_TOKEN_FOR_FOREIGN_NATIVE_ADDRESS, USER_ADDRESS, Web3Utils.toWei(HOME_MIN_AMOUNT_PER_TX, 'ether'))
       .encodeABI({ from: USER_ADDRESS })
 
   const txData = await homeToken.methods
-      .transferAndCall(HOME_BRIDGE_ADDRESS, Web3Utils.toWei(HOME_MIN_AMOUNT_PER_TX), transferData)
+      .transferAndCall(HOME_BRIDGE_ADDRESS, Web3Utils.toWei(HOME_MIN_AMOUNT_PER_TX, 'ether'), transferData)
       .encodeABI({ from: USER_ADDRESS })
 
   try {

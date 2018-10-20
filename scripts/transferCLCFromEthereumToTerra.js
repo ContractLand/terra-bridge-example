@@ -57,14 +57,14 @@ async function main() {
 
 async function sendApprove(nonce, foreignChaindId) {
   const data = await erc20.methods
-      .approve(FOREIGN_BRIDGE_ADDRESS, Web3Utils.toWei(FOREIGN_MIN_AMOUNT_PER_TX))
+      .approve(FOREIGN_BRIDGE_ADDRESS, Web3Utils.toWei(FOREIGN_MIN_AMOUNT_PER_TX, 'ether'))
       .encodeABI({ from: USER_ADDRESS })
   return await sendTransaction(data, nonce, foreignChaindId, erc20.options.address)
 }
 
 async function sendtransferTokenToHome(nonce, foreignChaindId) {
   const data = await foreignBridge.methods
-      .transferTokenToHome(FOREIGN_TOKEN_FOR_HOME_NATIVE_ADDRESS, USER_ADDRESS, Web3Utils.toWei(FOREIGN_MIN_AMOUNT_PER_TX))
+      .transferTokenToHome(FOREIGN_TOKEN_FOR_HOME_NATIVE_ADDRESS, USER_ADDRESS, Web3Utils.toWei(FOREIGN_MIN_AMOUNT_PER_TX, 'ether'))
       .encodeABI({ from: USER_ADDRESS })
   return await sendTransaction(data, nonce, foreignChaindId, FOREIGN_BRIDGE_ADDRESS)
 }
