@@ -14,7 +14,8 @@ const {
   FOREIGN_RPC_URL,
   FOREIGN_MIN_AMOUNT_PER_TX,
   ERC20_TOKEN_FOREIGN_ADDRESS,
-  NUMBER_OF_TRANSFERS_TO_SEND
+  NUMBER_OF_TRANSFERS_TO_SEND,
+  GAS_PRICE
 } = process.env
 
 const foreignProvider = new Web3.providers.HttpProvider(FOREIGN_RPC_URL)
@@ -74,7 +75,7 @@ async function sendTransaction(data, nonce, foreignChaindId, to) {
     privateKey: USER_ADDRESS_PRIVATE_KEY,
     data: data,
     nonce,
-    gasPrice: '1',
+    gasPrice: GAS_PRICE,
     amount: '0',
     gasLimit: 100000,
     to,

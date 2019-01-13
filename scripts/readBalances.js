@@ -25,21 +25,15 @@ const erc20TokenForeignContract = new web3Foreign.eth.Contract(erc20Abi, ERC20_T
 
 async function main() {
   const homeEth = await web3Home.eth.getBalance(USER_ADDRESS);
-  console.log(`Home (Terra-Chain) CLC (native) balance: ${web3Home.utils.fromWei(homeEth).toString()} ETH`);
+  console.log(`Home (Terra-Chain) CLC (native) balance: ${web3Home.utils.fromWei(homeEth).toString()}`);
 
   const homeToken = await homeTokenContract.methods.balanceOf(USER_ADDRESS).call();
   console.log(`Home (Terra-Chain) ETH (token) balance: ${web3Home.utils.fromWei(homeToken)}`)
 
   const foreignEth = await web3Foreign.eth.getBalance(USER_ADDRESS);
-  console.log(`Foreign (Ropsten) ETH (native) balance: ${web3Foreign.utils.fromWei(foreignEth).toString()} ETH`);
+  console.log(`Foreign (Ropsten) ETH (native) balance: ${web3Foreign.utils.fromWei(foreignEth).toString()}`);
 
   const foreignToken = await foreignTokenContract.methods.balanceOf(USER_ADDRESS).call();
   console.log(`Foreign (Ropsten) CLC (token) balance: ${web3Foreign.utils.fromWei(foreignToken)}`)
-
-  const erc20TokenHome = await erc20TokenForeignContract.methods.balanceOf(USER_ADDRESS).call();
-  console.log(`Foreign (Ropsten) CLC (token) balance: ${web3Foreign.utils.fromWei(erc20TokenHome)}`)
-
-  const erc20TokenForeign = await erc20TokenHomeContract.methods.balanceOf(USER_ADDRESS).call();
-  console.log(`Foreign (Ropsten) CLC (token) balance: ${web3Foreign.utils.fromWei(erc20TokenForeign)}`)
 }
 main()

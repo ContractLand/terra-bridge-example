@@ -10,7 +10,8 @@ const {
   HOME_BRIDGE_ADDRESS,
   HOME_RPC_URL,
   HOME_MIN_AMOUNT_PER_TX,
-  NUMBER_OF_TRANSFERS_TO_SEND
+  NUMBER_OF_TRANSFERS_TO_SEND,
+  GAS_PRICE
 } = process.env
 
 const homeProvider = new Web3.providers.HttpProvider(HOME_RPC_URL)
@@ -40,7 +41,7 @@ async function main() {
     privateKey: USER_ADDRESS_PRIVATE_KEY,
     data: data,
     nonce,
-    gasPrice: '1',
+    gasPrice: GAS_PRICE,
     amount: HOME_MIN_AMOUNT_PER_TX,
     gasLimit: 50000,
     to: HOME_BRIDGE_ADDRESS,

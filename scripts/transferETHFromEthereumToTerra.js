@@ -10,7 +10,8 @@ const {
   FOREIGN_BRIDGE_ADDRESS,
   FOREIGN_RPC_URL,
   FOREIGN_MIN_AMOUNT_PER_TX,
-  NUMBER_OF_TRANSFERS_TO_SEND
+  NUMBER_OF_TRANSFERS_TO_SEND,
+  GAS_PRICE
 } = process.env
 
 const foreignProvider = new Web3.providers.HttpProvider(FOREIGN_RPC_URL)
@@ -40,7 +41,7 @@ async function main() {
     privateKey: USER_ADDRESS_PRIVATE_KEY,
     data: data,
     nonce,
-    gasPrice: '1',
+    gasPrice: GAS_PRICE,
     amount: FOREIGN_MIN_AMOUNT_PER_TX,
     gasLimit: 50000,
     to: FOREIGN_BRIDGE_ADDRESS,

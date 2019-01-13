@@ -12,7 +12,8 @@ const {
   HOME_RPC_URL,
   HOME_MIN_AMOUNT_PER_TX,
   NUMBER_OF_TRANSFERS_TO_SEND,
-  ERC20_TOKEN_HOME_ADDRESS
+  ERC20_TOKEN_HOME_ADDRESS,
+  GAS_PRICE
 } = process.env
 
 const homeProvider = new Web3.providers.HttpProvider(HOME_RPC_URL)
@@ -48,7 +49,7 @@ async function main() {
     privateKey: USER_ADDRESS_PRIVATE_KEY,
     data: txData,
     nonce,
-    gasPrice: '1',
+    gasPrice: GAS_PRICE,
     amount: '0',
     gasLimit: 100000,
     to: ERC20_TOKEN_HOME_ADDRESS,
