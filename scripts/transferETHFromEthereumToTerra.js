@@ -33,25 +33,30 @@ async function main() {
   nonce = Web3Utils.hexToNumber(nonce)
   let actualSent = 0
 
-  const data = await foreignBridge.methods
-      .transferNativeToHome(USER_ADDRESS)
-      .encodeABI({ from: USER_ADDRESS })
-  const txHash = await sendTx({
-    rpcUrl: FOREIGN_RPC_URL,
-    privateKey: USER_ADDRESS_PRIVATE_KEY,
-    data: data,
-    nonce,
-    gasPrice: GAS_PRICE,
-    amount: FOREIGN_MIN_AMOUNT_PER_TX,
-    gasLimit: 50000,
-    to: FOREIGN_BRIDGE_ADDRESS,
-    web3: web3Foreign,
-    chainId: foreignChaindId
-  })
-  if (txHash !== undefined) {
-    nonce++
-    actualSent++
-    console.log(actualSent, ' # ', txHash)
+  let txCount = 0
+  while (txCount < NUMBER_OF_TRANSFERS_TO_SEND) {
+    const data = await foreignBridge.methods
+        .transferNativeToHome(USER_ADDRESS)
+        .encodeABI({ from: USER_ADDRESS })
+    const txHash = await sendTx({
+      rpcUrl: FOREIGN_RPC_URL,
+      privateKey: USER_ADDRESS_PRIVATE_KEY,
+      data: data,
+      nonce,
+      gasPrice: GAS_PRICE,
+      amount: FOREIGN_MIN_AMOUNT_PER_TX,
+      gasLimit: 50000,
+      to: FOREIGN_BRIDGE_ADDRESS,
+      web3: web3Foreign,
+      chainId: foreignChaindId
+    })
+    if (txHash !== undefined) {
+      nonce++
+      actualSent++
+      console.log(actualSent, ' # ', txHash)
+    }
+
+    txCount++
   }
 }
 

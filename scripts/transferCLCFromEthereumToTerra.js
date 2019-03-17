@@ -38,20 +38,25 @@ async function main() {
   nonce = Web3Utils.hexToNumber(nonce)
   let actualSent = 0
 
-  const approveTxHash = await sendApprove(nonce, foreignChaindId)
-  const approveReceipt = await getReceipt(approveTxHash, FOREIGN_RPC_URL)
-  if (approveReceipt.status == '0x1') {
-    nonce++
-    actualSent++
-    console.log(actualSent, ' # approve: ', approveTxHash)
-  }
+  let txCount = 0
+  while (txCount < NUMBER_OF_TRANSFERS_TO_SEND) {
+    const approveTxHash = await sendApprove(nonce, foreignChaindId)
+    const approveReceipt = await getReceipt(approveTxHash, FOREIGN_RPC_URL)
+    if (approveReceipt.status == '0x1') {
+      nonce++
+      actualSent++
+      console.log(actualSent, ' # approve: ', approveTxHash)
+    }
 
-  const transferTxHash = await sendtransferTokenToHome(nonce, foreignChaindId)
-  const transferReceipt = await getReceipt(transferTxHash, FOREIGN_RPC_URL)
-  if (transferReceipt.status == '0x1') {
-    nonce++
-    actualSent++
-    console.log(actualSent, ' #: ', transferTxHash)
+    const transferTxHash = await sendtransferTokenToHome(nonce, foreignChaindId)
+    const transferReceipt = await getReceipt(transferTxHash, FOREIGN_RPC_URL)
+    if (transferReceipt.status == '0x1') {
+      nonce++
+      actualSent++
+      console.log(actualSent, ' #: ', transferTxHash)
+    }
+
+    txCount++
   }
 }
 

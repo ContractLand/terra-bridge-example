@@ -36,30 +36,35 @@ async function main() {
   nonce = Web3Utils.hexToNumber(nonce)
   let actualSent = 0
 
-  const transferData = await homeBridge.methods
-      .transferTokenToForeign(HOME_TOKEN_FOR_FOREIGN_NATIVE_ADDRESS, USER_ADDRESS, Web3Utils.toWei(HOME_MIN_AMOUNT_PER_TX))
-      .encodeABI({ from: USER_ADDRESS })
+  let txCount = 0
+  while (txCount < NUMBER_OF_TRANSFERS_TO_SEND) {
+    const transferData = await homeBridge.methods
+        .transferTokenToForeign(HOME_TOKEN_FOR_FOREIGN_NATIVE_ADDRESS, USER_ADDRESS, Web3Utils.toWei(HOME_MIN_AMOUNT_PER_TX))
+        .encodeABI({ from: USER_ADDRESS })
 
-  const txData = await homeToken.methods
-      .transferAndCall(HOME_BRIDGE_ADDRESS, Web3Utils.toWei(HOME_MIN_AMOUNT_PER_TX), transferData)
-      .encodeABI({ from: USER_ADDRESS })
+    const txData = await homeToken.methods
+        .transferAndCall(HOME_BRIDGE_ADDRESS, Web3Utils.toWei(HOME_MIN_AMOUNT_PER_TX), transferData)
+        .encodeABI({ from: USER_ADDRESS })
 
-  const txHash = await sendTx({
-    rpcUrl: HOME_RPC_URL,
-    privateKey: USER_ADDRESS_PRIVATE_KEY,
-    data: txData,
-    nonce,
-    gasPrice: GAS_PRICE,
-    amount: '0',
-    gasLimit: 100000,
-    to: HOME_TOKEN_FOR_FOREIGN_NATIVE_ADDRESS,
-    web3: web3Home,
-    chainId: homeChaindId
-  })
-  if (txHash !== undefined) {
-    nonce++
-    actualSent++
-    console.log(actualSent, ' # ', txHash)
+    const txHash = await sendTx({
+      rpcUrl: HOME_RPC_URL,
+      privateKey: USER_ADDRESS_PRIVATE_KEY,
+      data: txData,
+      nonce,
+      gasPrice: GAS_PRICE,
+      amount: '0',
+      gasLimit: 100000,
+      to: HOME_TOKEN_FOR_FOREIGN_NATIVE_ADDRESS,
+      web3: web3Home,
+      chainId: homeChaindId
+    })
+    if (txHash !== undefined) {
+      nonce++
+      actualSent++
+      console.log(actualSent, ' # ', txHash)
+    }
+
+    txCount++
   }
 }
 main()
