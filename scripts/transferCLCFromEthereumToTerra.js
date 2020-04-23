@@ -64,17 +64,19 @@ async function sendApprove(nonce, foreignChaindId) {
   const data = await erc20.methods
       .approve(FOREIGN_BRIDGE_ADDRESS, Web3Utils.toWei(FOREIGN_MIN_AMOUNT_PER_TX))
       .encodeABI({ from: USER_ADDRESS })
-  return await sendTransaction(data, nonce, foreignChaindId, erc20.options.address)
+  return await sendTransaction(data, nonce, foreignChaindId, erc20.options.address, 0)
 }
 
 async function sendtransferTokenToHome(nonce, foreignChaindId) {
   const data = await foreignBridge.methods
       .transferTokenToHome(FOREIGN_TOKEN_FOR_HOME_NATIVE_ADDRESS, USER_ADDRESS, Web3Utils.toWei(FOREIGN_MIN_AMOUNT_PER_TX))
       .encodeABI({ from: USER_ADDRESS })
-  return await sendTransaction(data, nonce, foreignChaindId, FOREIGN_BRIDGE_ADDRESS)
+
+  const transferFeeInWei = await foreignBridge.methods.transferFee.call().call()
+  return await sendTransaction(data, nonce, foreignChaindId, FOREIGN_BRIDGE_ADDRESS, transferFeeInWei)
 }
 
-async function sendTransaction(data, nonce, foreignChaindId, to) {
+async function sendTransaction(data, nonce, foreignChaindId, to, value) {
   try {
     const txHash = await sendTx({
       rpcUrl: FOREIGN_RPC_URL,
@@ -82,8 +84,8 @@ async function sendTransaction(data, nonce, foreignChaindId, to) {
       data: data,
       nonce,
       gasPrice: GAS_PRICE,
-      amount: '0',
-      gasLimit: 100000,
+      amount: Web3Utils.fromWei(String(value), 'ether'),
+      gasLimit: 120000,
       to,
       web3: web3Foreign,
       chainId: foreignChaindId

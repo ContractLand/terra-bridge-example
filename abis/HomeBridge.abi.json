@@ -198,6 +198,20 @@
   },
   {
     "constant": true,
+    "inputs": [],
+    "name": "feeToken",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
     "inputs": [
       {
         "name": "",
@@ -209,6 +223,20 @@
       {
         "name": "",
         "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "feeCollected",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
       }
     ],
     "payable": false,
@@ -338,6 +366,20 @@
     "type": "function"
   },
   {
+    "constant": true,
+    "inputs": [],
+    "name": "transferFee",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "constant": false,
     "inputs": [
       {
@@ -449,10 +491,15 @@
     "type": "function"
   },
   {
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "fallback"
+  },
+  {
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "name": "token",
         "type": "address"
       },
@@ -474,7 +521,7 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "name": "token",
         "type": "address"
       },
@@ -489,7 +536,7 @@
         "type": "uint256"
       },
       {
-        "indexed": false,
+        "indexed": true,
         "name": "transactionHash",
         "type": "bytes32"
       }
@@ -632,6 +679,24 @@
     "constant": false,
     "inputs": [
       {
+        "name": "foreignAddress",
+        "type": "address"
+      },
+      {
+        "name": "homeAddress",
+        "type": "address"
+      }
+    ],
+    "name": "registerToken",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
         "name": "recipient",
         "type": "address"
       }
@@ -712,15 +777,34 @@
     "constant": false,
     "inputs": [
       {
-        "name": "foreignAddress",
-        "type": "address"
-      },
-      {
-        "name": "homeAddress",
+        "name": "_feeToken",
         "type": "address"
       }
     ],
-    "name": "registerToken",
+    "name": "setFeeToken",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_transferFee",
+        "type": "uint256"
+      }
+    ],
+    "name": "setTransferFee",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "withdrawFee",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",

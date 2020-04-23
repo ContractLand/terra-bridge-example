@@ -38,14 +38,18 @@ async function main() {
     const data = await foreignBridge.methods
         .transferNativeToHome(USER_ADDRESS)
         .encodeABI({ from: USER_ADDRESS })
+
+    const transferFeeInWei = await foreignBridge.methods.transferFee.call().call()
+
+    const amount = Number(FOREIGN_MIN_AMOUNT_PER_TX) + Number(Web3Utils.fromWei(String(transferFeeInWei), 'ether'))
     const txHash = await sendTx({
       rpcUrl: FOREIGN_RPC_URL,
       privateKey: USER_ADDRESS_PRIVATE_KEY,
       data: data,
       nonce,
       gasPrice: GAS_PRICE,
-      amount: FOREIGN_MIN_AMOUNT_PER_TX,
-      gasLimit: 50000,
+      amount: String(amount),
+      gasLimit: 100000,
       to: FOREIGN_BRIDGE_ADDRESS,
       web3: web3Foreign,
       chainId: foreignChaindId

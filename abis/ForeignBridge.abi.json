@@ -123,6 +123,20 @@
   {
     "constant": true,
     "inputs": [],
+    "name": "feeCollected",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
     "name": "requiredSignatures",
     "outputs": [
       {
@@ -194,6 +208,20 @@
       }
     ],
     "name": "totalSpentPerDay",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "transferFee",
     "outputs": [
       {
         "name": "",
@@ -316,10 +344,24 @@
     "type": "function"
   },
   {
+    "constant": true,
+    "inputs": [],
+    "name": "USDTAddress",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "name": "token",
         "type": "address"
       },
@@ -334,7 +376,7 @@
         "type": "uint256"
       },
       {
-        "indexed": false,
+        "indexed": true,
         "name": "transactionHash",
         "type": "bytes32"
       }
@@ -346,7 +388,7 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": false,
+        "indexed": true,
         "name": "token",
         "type": "address"
       },
@@ -471,8 +513,8 @@
     ],
     "name": "transferTokenToHome",
     "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
+    "payable": true,
+    "stateMutability": "payable",
     "type": "function"
   },
   {
@@ -505,15 +547,34 @@
     "constant": false,
     "inputs": [
       {
-        "name": "_token",
-        "type": "address"
-      },
-      {
-        "name": "_to",
+        "name": "_addr",
         "type": "address"
       }
     ],
-    "name": "claimTokens",
+    "name": "setUSDTAddress",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_transferFee",
+        "type": "uint256"
+      }
+    ],
+    "name": "setTransferFee",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "withdrawFee",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
